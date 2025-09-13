@@ -10,3 +10,7 @@ stripe:
 
 appConfiguration:
   paymentGateway: paypal
+
+emailService:
+  host: www.gmail.com
+  port: 2071
