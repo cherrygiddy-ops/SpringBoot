@@ -1,0 +1,11 @@
+@Scope(
+1.Singleton -> only one instance of a bean is created per IOC throughout its the entire life cycle
+
+2.Prototype scope -> a new instance is created every time this object is requested from IOC container useful for components that are being
+  used temporarily
+
+3.Request -> a new bean instance  is created for each HTTP Request and destroyed ounce the request is completed useful for storing
+ request of specific data in web applications.
+
+ 4.Session -> a new bean instance  is created for each HTTP Session and destroyed ounce the Session is completed
+ )
