@@ -1,4 +1,4 @@
-package com.morrisco.net.store;
+package com.morrisco.net.store.mvc;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -14,5 +14,6 @@ public class HomeController {
     public String index(){
         System.out.println("appName "+ name);
         return "index.html";
+
     }
 }
