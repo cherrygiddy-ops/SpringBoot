@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
  * 6.@primary -> for marking the default bean especially when a class  has more than one implementations.
  * 7.@Qualify ->when one  to use specific implementation
  */
-@Component
+//@Component
 public class OrderService {
     private final PaymentService paymentService;
 
