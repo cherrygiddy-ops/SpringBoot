@@ -11,8 +11,8 @@ public class StoreApplication {
 
 	public static void main(String[] args) {
 		ApplicationContext applicationContext=SpringApplication.run(StoreApplication.class, args);//this is IOC Container for managing Beans or storage for objects
-        var notificationManager = applicationContext.getBean(NotificationManager.class);
-        notificationManager.sendMessage("Hello world");
+        var orderService = applicationContext.getBean(OrderService.class);
+        orderService.makeOrder(5);
 	}
 
 }

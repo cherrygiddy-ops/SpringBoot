@@ -19,7 +19,7 @@ public class OrderService {
     private final PaymentService paymentService;
 
     @Autowired //telling spring to auto wire this class with its dependencies
-    public OrderService(@Qualifier("paypal") PaymentService paymentService) {
+    public OrderService(@Qualifier("stripe") PaymentService paymentService) {
         this.paymentService = paymentService;
     }
 
