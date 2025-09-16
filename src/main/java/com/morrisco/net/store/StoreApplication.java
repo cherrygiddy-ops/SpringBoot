@@ -1,6 +1,7 @@
 package com.morrisco.net.store;
 
 import com.morrisco.net.store.notificationsManager.NotificationManager;
+import com.morrisco.net.store.onlineStoreSystem.entities.Addresses;
 import com.morrisco.net.store.onlineStoreSystem.entities.User;
 import com.morrisco.net.store.orderService.OrderService;
 import com.morrisco.net.store.userRegistrationService.UserService;
@@ -20,7 +21,15 @@ public class StoreApplication {
                 .email("b")
                 .password("c")
                 .build();
-        System.out.println(user.toString());
+        var address = Addresses.builder()
+                .city("mg")
+                .state("na")
+                .zipCode("67")
+                .street("kiptunoi")
+                .build();
+
+        user.addAddress(address);
+        System.out.println(user);
 	}
 
 }
