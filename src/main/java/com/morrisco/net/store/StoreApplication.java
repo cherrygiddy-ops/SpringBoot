@@ -12,9 +12,9 @@ import org.springframework.context.ApplicationContext;
 public class StoreApplication {
 
 	public static void main(String[] args) {
-		ApplicationContext applicationContext=SpringApplication.run(StoreApplication.class, args);//this is IOC Container for managing Beans or storage for objects
-        var userRegistrationService = applicationContext.getBean(UserService.class);
-        userRegistrationService.registerUser(new User("cheery",5,"rismocher","gg"));
+		SpringApplication.run(StoreApplication.class, args);//this is IOC Container for managing Beans or storage for objects
+        //var userRegistrationService = applicationContext.getBean(UserService.class);
+        //userRegistrationService.registerUser(new User("cheery",5,"rismocher","gg"));
 	}
 
 }
