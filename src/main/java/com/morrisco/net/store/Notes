@@ -13,3 +13,6 @@ Bean Scope
 
  FlyWay library is used to script our database  so that this db can be recreated across different environment and we can version and track changes
  over time for consistency and reliability
+
+ Lombok library is used to simply code or used to reduce boiler plates code it provide us with annotations and we can use this annotations to
+ instruct intellji to automatically generate getters ,setterrs ,allArgsConstrctor,tostring at compile time
