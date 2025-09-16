@@ -1,16 +1,14 @@
 package com.morrisco.net.store.onlineStoreSystem.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Setter
 @Getter
 @AllArgsConstructor //jpa and hibernate expect default constructor  but here java initial this fields  so we need to apply another annotaion call
                     //@NoArgsConstructor to return back to default constructor
 @NoArgsConstructor
+@Builder //used for building object step by step
 @Entity
 @Table(name = "users")
 public class User {

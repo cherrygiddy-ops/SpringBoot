@@ -15,7 +15,12 @@ public class StoreApplication {
         //SpringApplication.run(StoreApplication.class, args);//this is IOC Container for managing Beans or storage for objects
         //var userRegistrationService = applicationContext.getBean(UserService.class);
         //userRegistrationService.registerUser(new User("cheery",5,"rismocher","gg"));
-        var user = new User(5L,"A","B","c");
+        var user =User.builder()
+                .name("a")
+                .email("b")
+                .password("c")
+                .build();
+        System.out.println(user.toString());
 	}
 
 }
