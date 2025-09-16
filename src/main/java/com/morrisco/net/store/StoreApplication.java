@@ -21,14 +21,14 @@ public class StoreApplication {
                 .email("b")
                 .password("c")
                 .build();
-        var address = Addresses.builder()
-                .city("mg")
-                .state("na")
-                .zipCode("67")
-                .street("kiptunoi")
-                .build();
+//        var address = Addresses.builder()
+//                .city("mg")
+//                .state("na")
+//                .zipCode("67")
+//                .street("kiptunoi")
+//                .build();
 
-        user.addAddress(address);
+        user.addTag("F");
         System.out.println(user);
 	}
 

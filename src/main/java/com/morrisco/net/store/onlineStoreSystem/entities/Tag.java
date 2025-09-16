@@ -3,11 +3,13 @@ package com.morrisco.net.store.onlineStoreSystem.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Setter
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@ToString
 @Table(name = "tags")
 @Entity
 public class Tag {
@@ -19,4 +21,11 @@ public class Tag {
     @Column(nullable = false,name = "name")
     private String name;
 
+    @ManyToMany(mappedBy = "tags") //telling to hibernate who is the owner of the relationship
+    @ToString.Exclude//EXCLUDING TAGS from being converted to Tostring because it can form a cycle
+    private Set<User> tags = new HashSet<>();//user can not have duplicate tags
+
+    public Tag(String name) {
+        this.name = name;
+    }
 }
