@@ -60,4 +60,20 @@ public class User {
         var tag = new Tag(tagName);
         tags.add(tag);
     }
+
+    @OneToOne(mappedBy = "user")
+    private Profile profile;
+
+    @ManyToMany
+    @JoinTable(
+            name = "wishlist",
+            joinColumns =@JoinColumn(name = "users_id"),
+            inverseJoinColumns = @JoinColumn(name = "products_id")
+    )
+    @Builder.Default
+    private Set<Product> wishList = new HashSet<>();//user can not have duplicate tags
+
+    public void addProduct(Product product){
+       wishList.add(product);
+    }
 }

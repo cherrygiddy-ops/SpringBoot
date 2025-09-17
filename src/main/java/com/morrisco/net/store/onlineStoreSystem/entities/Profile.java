@@ -13,6 +13,7 @@ import java.util.Date;
 @Builder
 @Table(name = "profiles")
 @Entity
+@ToString
 public class Profile {
     @Id
     @Column(name = "users_id")
@@ -31,4 +32,9 @@ public class Profile {
     @Column(name = "loyalty_points")
     private String loyaltyPoints;
 
+    @OneToOne
+    @JoinColumn(name = "users_id") //this is the foreignKey Column
+    @MapsId //TELLING Hibernate to use the same column as foreign key and primary key of the entity
+    @ToString.Exclude
+    private User user;
 }
