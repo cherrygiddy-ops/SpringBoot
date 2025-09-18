@@ -65,7 +65,7 @@ public class User {
     @OneToOne(mappedBy = "user",cascade = CascadeType.REMOVE)
     private Profile profile;
 
-    @ManyToMany
+    @ManyToMany()
     @JoinTable(
             name = "wishlist",
             joinColumns =@JoinColumn(name = "users_id"),
@@ -76,5 +76,8 @@ public class User {
 
     public void addProduct(Product product){
        wishList.add(product);
+    }
+    public void addProducts(List<Product> products){
+        wishList.addAll(products);
     }
 }

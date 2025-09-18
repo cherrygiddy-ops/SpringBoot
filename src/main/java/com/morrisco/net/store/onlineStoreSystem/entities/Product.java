@@ -27,7 +27,7 @@ public class Product {
     @Column(name = "price")
     private BigDecimal price;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)//Eager Loading
     @JoinColumn(name = "category_id") //this is the foreignKey Column
     @ToString.Exclude
     private Category category;
