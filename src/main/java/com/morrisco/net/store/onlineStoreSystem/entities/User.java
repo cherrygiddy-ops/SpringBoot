@@ -33,7 +33,7 @@ public class User {
     @Column(nullable = false,name = "password")
     private String password;
 
-    @OneToMany(mappedBy = "user" , cascade = CascadeType.PERSIST)//telling hibernate who is the owner of the relationship
+    @OneToMany(mappedBy = "user" , cascade = { CascadeType.PERSIST,CascadeType.REMOVE},orphanRemoval = true)//telling hibernate who is the owner of the relationship
     @Builder.Default //telling builder annotation to include new ArrayList<>(); when building an object
     private List<Addresses> addresses = new ArrayList<>();
 
@@ -62,8 +62,8 @@ public class User {
         tags.add(tag);
     }
 
-//    @OneToOne(mappedBy = "user")
-//    private Profile profile;
+    @OneToOne(mappedBy = "user",cascade = CascadeType.REMOVE)
+    private Profile profile;
 
     @ManyToMany
     @JoinTable(

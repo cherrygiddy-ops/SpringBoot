@@ -43,7 +43,7 @@ public class UserService {
         System.out.println(address.getState());
     }
 
-    public void persistRelatedEntities(){
+    public void persistRelatedEntities_SaveToDB(){
         var user = User.builder()
                 .name("a")
                 .email("b")
@@ -60,6 +60,19 @@ public class UserService {
 
         userRepository.save(user);
 
+    }
+
+    public void deleteRelatedEntities(){
+        userRepository.deleteById(3);
+    }
+
+
+    @Transactional
+    public void deleteChildRecord(){
+        var user =userRepository.findById(7).orElseThrow();
+        var address=user.getAddresses().get(0);
+        user.removeAddress(address);
+        userRepository.save(user);
     }
 
 }
