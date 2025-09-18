@@ -2,6 +2,7 @@ package com.morrisco.net.store;
 
 import com.morrisco.net.store.onlineStoreSystem.entities.*;
 import com.morrisco.net.store.onlineStoreSystem.repository.UserRepository;
+import com.morrisco.net.store.onlineStoreSystem.services.UnderstandingState;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
@@ -13,7 +14,8 @@ public class StoreApplication {
 
 	public static void main(String[] args) {
         ApplicationContext applicationContext= SpringApplication.run(StoreApplication.class, args);//this is IOC Container for managing Beans or storage for objects
-       var repository= applicationContext.getBean(UserRepository.class);
+       var repository= applicationContext.getBean(UnderstandingState.class);
+       repository.show();
         var user =User.builder()
                 .name("a")
                 .email("b")
@@ -30,8 +32,8 @@ public class StoreApplication {
 
        //repository.save(user);
         //System.out.println(repository.findById(1).get().getEmail());
-        repository.findAll().forEach(user1 -> System.out.println(user1.getEmail()));
-        repository.deleteById(2);
+//        repository.findAll().forEach(user1 -> System.out.println(user1.getEmail()));
+//        repository.deleteById(2);
 	}
 
 }
