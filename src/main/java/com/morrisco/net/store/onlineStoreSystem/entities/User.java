@@ -50,8 +50,8 @@ public class User {
     @ManyToMany
     @JoinTable(
             name = "user_tags",
-            joinColumns =@JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "tag_id")
+            joinColumns =@JoinColumn(name = "users_id"),
+            inverseJoinColumns = @JoinColumn(name = "tags_id")
     )
     @Builder.Default
     private Set<Tag>tags = new HashSet<>();//user can not have duplicate tags
