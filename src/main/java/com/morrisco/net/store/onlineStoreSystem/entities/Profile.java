@@ -32,7 +32,7 @@ public class Profile {
     @Column(name = "loyalty_points")
     private String loyaltyPoints;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "users_id") //this is the foreignKey Column
     @MapsId //TELLING Hibernate to use the same column as foreign key and primary key of the entity
     @ToString.Exclude

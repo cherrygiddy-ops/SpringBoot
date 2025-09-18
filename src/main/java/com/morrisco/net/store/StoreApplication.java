@@ -1,21 +1,18 @@
 package com.morrisco.net.store;
 
 import com.morrisco.net.store.onlineStoreSystem.entities.*;
-import com.morrisco.net.store.onlineStoreSystem.repository.UserRepository;
-import com.morrisco.net.store.onlineStoreSystem.services.UnderstandingState;
+import com.morrisco.net.store.onlineStoreSystem.services.UserService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
-
-import java.math.BigDecimal;
 
 @SpringBootApplication
 public class StoreApplication {
 
 	public static void main(String[] args) {
         ApplicationContext applicationContext= SpringApplication.run(StoreApplication.class, args);//this is IOC Container for managing Beans or storage for objects
-       var repository= applicationContext.getBean(UnderstandingState.class);
-       repository.show();
+       var repository= applicationContext.getBean(UserService.class);
+       repository.persistRelatedEntities();
         var user =User.builder()
                 .name("a")
                 .email("b")

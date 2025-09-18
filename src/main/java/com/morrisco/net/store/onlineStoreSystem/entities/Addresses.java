@@ -33,7 +33,7 @@ public class Addresses {
     @Column(name = "state")
     private String state;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id") //This is the owner of the relationship and this is where we are defining foreign Key by  using JoinColumn annotation
     @ToString.Exclude
     private User user;

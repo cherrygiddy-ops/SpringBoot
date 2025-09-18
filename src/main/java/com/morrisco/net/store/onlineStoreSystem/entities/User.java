@@ -2,6 +2,7 @@ package com.morrisco.net.store.onlineStoreSystem.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.engine.internal.Cascade;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -32,7 +33,7 @@ public class User {
     @Column(nullable = false,name = "password")
     private String password;
 
-    @OneToMany(mappedBy = "user")//telling hibernate who is the owner of the relationship
+    @OneToMany(mappedBy = "user" , cascade = CascadeType.PERSIST)//telling hibernate who is the owner of the relationship
     @Builder.Default //telling builder annotation to include new ArrayList<>(); when building an object
     private List<Addresses> addresses = new ArrayList<>();
 
@@ -61,8 +62,8 @@ public class User {
         tags.add(tag);
     }
 
-    @OneToOne(mappedBy = "user")
-    private Profile profile;
+//    @OneToOne(mappedBy = "user")
+//    private Profile profile;
 
     @ManyToMany
     @JoinTable(
