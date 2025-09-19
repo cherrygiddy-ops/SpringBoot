@@ -2,7 +2,6 @@ package com.morrisco.net.store.onlineStoreSystem.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.engine.internal.Cascade;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -17,7 +16,6 @@ import java.util.Set;
 @Builder //used for building object step by step
 @Entity
 @Table(name = "users")
-@ToString
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)//used to specify how ids are generated i.e primary keys
@@ -62,8 +60,8 @@ public class User {
         tags.add(tag);
     }
 
-    @OneToOne(mappedBy = "user",cascade = CascadeType.REMOVE)
-    private Profile profile;
+//    @OneToOne(mappedBy = "user",cascade = CascadeType.REMOVE)
+//    private Profile profile;
 
     @ManyToMany()
     @JoinTable(
@@ -79,5 +77,13 @@ public class User {
     }
     public void addProducts(List<Product> products){
         wishList.addAll(products);
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "(" +
+                "id = " + id + ", " +
+                "name = " + name + ", " +
+                "email = " + email + ")";
     }
 }
