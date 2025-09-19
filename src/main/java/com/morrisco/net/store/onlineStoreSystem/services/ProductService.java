@@ -1,6 +1,5 @@
 package com.morrisco.net.store.onlineStoreSystem.services;
 
-import com.morrisco.net.store.onlineStoreSystem.entities.Category;
 import com.morrisco.net.store.onlineStoreSystem.entities.Product;
 import com.morrisco.net.store.onlineStoreSystem.repository.CategoryRepository;
 import com.morrisco.net.store.onlineStoreSystem.repository.ProductRepository;
@@ -46,4 +45,9 @@ public class ProductService {
     public void deleteProduct(){
         productRepository.deleteById(4L);
     }
+
+    public List<Product> findbyName(String name){
+        return productRepository.findFirst5ByNameOrderByPriceDesc(name);
+    }
 }
+
