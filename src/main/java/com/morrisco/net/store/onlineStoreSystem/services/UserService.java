@@ -1,6 +1,7 @@
 package com.morrisco.net.store.onlineStoreSystem.services;
 
 import com.morrisco.net.store.onlineStoreSystem.entities.Addresses;
+import com.morrisco.net.store.onlineStoreSystem.entities.Profile;
 import com.morrisco.net.store.onlineStoreSystem.entities.User;
 import com.morrisco.net.store.onlineStoreSystem.repository.AddressesRepository;
 import com.morrisco.net.store.onlineStoreSystem.repository.ProfileRepository;
@@ -9,6 +10,8 @@ import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
 
 @AllArgsConstructor
 @Service
@@ -85,6 +88,35 @@ public class UserService {
         user.getAddresses().forEach(System.out::println
                 );
        }
+    }
+
+    @Transactional
+    public void persistUserAndProfile(){
+//        var user = User.builder()
+//                .name("a")
+//                .email("morris")
+//                .password("c")
+//                .build();
+        var user2=userRepository.findById(10).orElseThrow().getId();
+        //System.out.println(user2.getId());
+        var profile = Profile.builder()
+                .id(user2)
+                .bio("s")
+                .loyaltyPoints(5)
+                .phoneNumber("0706781524")
+                .dateOfBirth(LocalDate.parse("1996-10-10"))
+                .build();
+        //userRepository.save(user);
+        profileRepository.save(profile);
+
+    }
+
+    @Transactional
+    public void printEmails(int points){
+        userRepository.findLoyalUsers(points).forEach(profile -> {
+            System.out.println(profile.getId());
+            System.out.println(profile.getEmail());
+        });
     }
 
 }

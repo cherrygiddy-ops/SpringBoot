@@ -17,7 +17,6 @@ import java.util.Date;
 public class Profile {
     @Id
     @Column(name = "users_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "bio")
@@ -30,7 +29,7 @@ public class Profile {
     private LocalDate dateOfBirth;
 
     @Column(name = "loyalty_points")
-    private String loyaltyPoints;
+    private Integer loyaltyPoints;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "users_id") //this is the foreignKey Column
