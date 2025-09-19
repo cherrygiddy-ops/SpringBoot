@@ -1,5 +1,7 @@
 package com.morrisco.net.store.onlineStoreSystem.repository;
 
+import com.morrisco.net.store.onlineStoreSystem.dtos.ProductSummary;
+import com.morrisco.net.store.onlineStoreSystem.entities.Category;
 import com.morrisco.net.store.onlineStoreSystem.entities.Product;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -57,4 +59,6 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
     @Modifying
     @Query(value = "update products set price = :newPrice where category_id = :categoryId ",nativeQuery = true)
     void updatePriceByCategory(@Param("newPrice") BigDecimal newPrice, @Param("categoryId") Byte categoryId);
+
+    List<ProductSummary> findByCategory(Category category);
 }

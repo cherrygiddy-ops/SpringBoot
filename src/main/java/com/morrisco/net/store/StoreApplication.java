@@ -12,7 +12,7 @@ public class StoreApplication {
 	public static void main(String[] args) {
         ApplicationContext applicationContext= SpringApplication.run(StoreApplication.class, args);//this is IOC Container for managing Beans or storage for objects
        var repository= applicationContext.getBean(ProductService.class);
-       repository.updateProduct(5, (byte) 3);
+       repository.fetchProducts((byte) 3);
         var user =User.builder()
                 .name("a")
                 .email("b")

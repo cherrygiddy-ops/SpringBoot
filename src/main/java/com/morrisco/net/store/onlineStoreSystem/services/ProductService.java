@@ -1,5 +1,6 @@
 package com.morrisco.net.store.onlineStoreSystem.services;
 
+import com.morrisco.net.store.onlineStoreSystem.entities.Category;
 import com.morrisco.net.store.onlineStoreSystem.entities.Product;
 import com.morrisco.net.store.onlineStoreSystem.repository.CategoryRepository;
 import com.morrisco.net.store.onlineStoreSystem.repository.ProductRepository;
@@ -49,6 +50,10 @@ public class ProductService {
     @Transactional
     public void updateProduct(int a, byte b){
          productRepository.updatePriceByCategory(BigDecimal.valueOf(a), b);
+    }
+
+    public void fetchProducts(byte categoryId){
+        System.out.println(productRepository.findByCategory(new Category(categoryId)));
     }
 }
 
