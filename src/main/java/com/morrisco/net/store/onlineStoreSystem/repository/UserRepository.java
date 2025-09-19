@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface UserRepository extends CrudRepository<User, Integer> {
@@ -13,4 +14,8 @@ public interface UserRepository extends CrudRepository<User, Integer> {
     //@Query("select u.email from User u where u.email = ?1")
     @EntityGraph(attributePaths = {"tags","addresses"}) //changing the relationship attributes btwn tags and user to be ager loading
     Optional<User>findByEmail(String email);
+
+    @EntityGraph(attributePaths = "addresses")
+    @Query("select u from User u")
+    List<User>findAllWithAddresses();
 }

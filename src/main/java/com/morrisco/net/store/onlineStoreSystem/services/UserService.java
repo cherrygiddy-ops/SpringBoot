@@ -79,7 +79,7 @@ public class UserService {
     public void fetchByEmail(){
         //In Here we have N+1 PROBLEM Since for every user Record Hibernate sents another request to db to fetch users address
         //hence Eager loading can solve this problem by Loading address and users at ounce
-       var users= userRepository.findAll();
+       var users= userRepository.findAllWithAddresses();
        for (var user:users){
         System.out.println(user);
         user.getAddresses().forEach(System.out::println
