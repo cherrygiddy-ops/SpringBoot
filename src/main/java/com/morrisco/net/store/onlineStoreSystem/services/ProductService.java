@@ -9,7 +9,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -46,8 +45,10 @@ public class ProductService {
         productRepository.deleteById(4L);
     }
 
-    public List<Product> findbyName(String name){
-        return productRepository.findFirst5ByNameOrderByPriceDesc(name);
+
+    @Transactional
+    public void updateProduct(int a, byte b){
+         productRepository.updatePriceByCategory(BigDecimal.valueOf(a), b);
     }
 }
 
