@@ -55,5 +55,10 @@ public class ProductService {
     public void fetchProducts(byte categoryId){
         System.out.println(productRepository.findByCategory(new Category(categoryId)));
     }
+
+    @Transactional
+    public void fetchProductsByRange(int min, int max){
+        System.out.println(productRepository.findProductsUsingStoredProcedure(BigDecimal.valueOf(min), BigDecimal.valueOf(max)));
+    }
 }
 
