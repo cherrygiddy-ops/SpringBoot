@@ -4,6 +4,7 @@ import com.morrisco.net.store.onlineStoreSystem.dtos.ProductSummary;
 import com.morrisco.net.store.onlineStoreSystem.dtos.ProductSummaryUsingClass;
 import com.morrisco.net.store.onlineStoreSystem.entities.Category;
 import com.morrisco.net.store.onlineStoreSystem.entities.Product;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.query.Procedure;
@@ -13,7 +14,7 @@ import org.springframework.data.repository.query.Param;
 import java.math.BigDecimal;
 import java.util.List;
 
-public interface ProductRepository extends CrudRepository<Product, Long> {
+public interface ProductRepository extends JpaRepository<Product, Long> {
    //String
     //select * from products where name like ?
     List<Product>findByName(String name);
@@ -67,4 +68,8 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
 
     @Procedure("findProductsByPrice")
     List<Product> findProductsUsingStoredProcedure( BigDecimal min, BigDecimal max);
+
+
+    //Querying By Example
+
 }

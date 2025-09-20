@@ -7,6 +7,8 @@ import com.morrisco.net.store.onlineStoreSystem.repository.ProductRepository;
 import com.morrisco.net.store.onlineStoreSystem.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -59,6 +61,25 @@ public class ProductService {
     @Transactional
     public void fetchProductsByRange(int min, int max){
         System.out.println(productRepository.findProductsUsingStoredProcedure(BigDecimal.valueOf(min), BigDecimal.valueOf(max)));
+    }
+
+    public void fetchProductsByQueryingExample(){
+        var product = new Product();
+        product.setName("a");
+        var matcher = ExampleMatcher.matching()
+                //.withIncludeNullValues()
+                //.withIgnorePaths()
+                .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
+        var example = Example.of(product,matcher);
+        productRepository.findAll(example).forEach(System.out::println);
+
+        //LIMITATIONS OF QUERYING BY EXAMPLE
+        /**
+         * No support for nested properties
+         * No support for Matching collections/maps
+         * Database specific support for matching Strings
+         * Exact Matching for other types (e.g numbers/dates)
+         */
     }
 }
 
