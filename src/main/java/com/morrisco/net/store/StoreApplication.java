@@ -16,7 +16,7 @@ public class StoreApplication {
 	public static void main(String[] args) {
         ApplicationContext applicationContext= SpringApplication.run(StoreApplication.class, args);//this is IOC Container for managing Beans or storage for objects
        var repository= applicationContext.getBean(ProductService.class);
-        repository.fetchProductsBySpecification(null, null,null);
+        repository.fetchPaginatedProducts(0,3);
         var user =User.builder()
                 .name("a")
                 .email("b")

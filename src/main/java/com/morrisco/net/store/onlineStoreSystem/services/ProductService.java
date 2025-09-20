@@ -8,8 +8,7 @@ import com.morrisco.net.store.onlineStoreSystem.repository.UserRepository;
 import com.morrisco.net.store.onlineStoreSystem.repository.specification.ProductSpec;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.*;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -102,6 +101,29 @@ public class ProductService {
         }
 
         productRepository.findAll(specification).forEach(System.out::println);
+    }
+
+    public void fetchSortedProducts(){
+      var sort = Sort.by("name").and(Sort.by("price").descending());
+
+      productRepository.findAll(sort).forEach(System.out::println);
+    }
+
+    public void fetchPaginatedProducts(int pageNumber,int size){
+        PageRequest pageRequest = PageRequest.of(pageNumber,size);
+        Page<Product>page=productRepository.findAll(pageRequest);
+
+        //getting products in each page
+        var products = page.getContent();
+        products.forEach(System.out::println);
+
+        //getting total numbers of pages
+        var totalPages =page.getTotalPages();
+        var totalElements = page.getTotalElements();
+
+        System.out.println(totalPages);
+        System.out.println(totalElements);
+
     }
 }
 
