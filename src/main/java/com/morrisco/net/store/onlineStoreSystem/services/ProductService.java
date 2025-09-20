@@ -85,10 +85,11 @@ public class ProductService {
 
 
     public void fetchProductsByCriteria(){
-        productRepository.findProductsByCriteria("A",BigDecimal.valueOf(6),BigDecimal.valueOf(15)).forEach(System.out::println);
+//var category = categoryRepository.findById((byte) 3).orElseThrow();
+        productRepository.findProductsByCriteria(null,null,null,new Category((byte) 3)).forEach(System.out::println);
     }
 
-    public void fetchProductsBySpecification(String name,BigDecimal minPrice,BigDecimal maxPrice){
+    public void fetchProductsBySpecification(String name,BigDecimal minPrice,BigDecimal maxPrice,Category category){
         @SuppressWarnings("removal") Specification<Product>specification = Specification.where(null);
         if (name != null){
             specification =specification.and(ProductSpec.hasName(name));
@@ -99,6 +100,9 @@ public class ProductService {
         if (maxPrice != null){
             specification =specification.and(ProductSpec.hasPriceLessThanOrEqualTo(maxPrice));
         }
+
+        if (category != null)
+            specification =specification.and(ProductSpec.hasCategory(category));
 
         productRepository.findAll(specification).forEach(System.out::println);
     }

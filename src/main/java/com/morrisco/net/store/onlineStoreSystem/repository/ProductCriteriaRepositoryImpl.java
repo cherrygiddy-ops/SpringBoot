@@ -1,5 +1,6 @@
 package com.morrisco.net.store.onlineStoreSystem.repository;
 
+import com.morrisco.net.store.onlineStoreSystem.entities.Category;
 import com.morrisco.net.store.onlineStoreSystem.entities.Product;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -23,7 +24,7 @@ public class ProductCriteriaRepositoryImpl implements ProductCriteriaRepository 
     private final EntityManager entityManager;
 
     @Override
-    public List<Product> findProductsByCriteria(String name, BigDecimal minPrice, BigDecimal maxPrice) {
+    public List<Product> findProductsByCriteria(String name, BigDecimal minPrice, BigDecimal maxPrice, Category category) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Product> cq = cb.createQuery(Product.class);
 
@@ -45,6 +46,8 @@ public class ProductCriteriaRepositoryImpl implements ProductCriteriaRepository 
             //price <= maxprice
             predicates.add(cb.lessThanOrEqualTo(root.get("price"), maxPrice));
         }
+        if (category !=null)
+            predicates.add(cb.equal(root.get("category"),category));
 
         cq.select(root).where(predicates.toArray(new Predicate[0]));
 

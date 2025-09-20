@@ -1,5 +1,6 @@
 package com.morrisco.net.store.onlineStoreSystem.repository.specification;
 
+import com.morrisco.net.store.onlineStoreSystem.entities.Category;
 import com.morrisco.net.store.onlineStoreSystem.entities.Product;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -20,5 +21,9 @@ public class ProductSpec {
 
     public static Specification<Product> hasPriceLessThanOrEqualTo(BigDecimal maxPrice){
         return (Root<Product>root, CriteriaQuery<?>query, CriteriaBuilder cb) ->cb.lessThanOrEqualTo(root.get("price"), maxPrice);
+    }
+
+    public static Specification<Product> hasCategory(Category category){
+        return (Root<Product>root, CriteriaQuery<?>query, CriteriaBuilder cb) ->cb.equal(root.get("category"),category);
     }
 }
