@@ -81,5 +81,11 @@ public class ProductService {
          * Exact Matching for other types (e.g numbers/dates)
          */
     }
+
+
+    public void fetchProductsByCriteria(){
+        productRepository.findProductsByCriteria("A",BigDecimal.valueOf(6),BigDecimal.valueOf(15)).forEach(System.out::println);
+
+    }
 }
 
