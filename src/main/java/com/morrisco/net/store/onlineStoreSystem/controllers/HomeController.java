@@ -9,8 +9,10 @@ public class HomeController {
 
 
     @RequestMapping("/") //Providing an end Point
-    public String index(){
-        return "index.html";
+    public String index(Model model){
+        model.addAttribute("name" ,"Cherry");
+
+        return "index";
     }
 
     @RequestMapping("/hello") //Providing an end Point
