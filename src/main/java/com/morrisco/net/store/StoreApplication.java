@@ -14,14 +14,14 @@ import java.math.BigDecimal;
 public class StoreApplication {
 
 	public static void main(String[] args) {
-        ApplicationContext applicationContext= SpringApplication.run(StoreApplication.class, args);//this is IOC Container for managing Beans or storage for objects
-       var repository= applicationContext.getBean(ProductService.class);
-        repository.fetchProductsBySpecification(null,null,null,new Category((byte) 4));
-        var user =User.builder()
-                .name("a")
-                .email("b")
-                .password("c")
-                .build();//transient state -> temporary
+        SpringApplication.run(StoreApplication.class, args);//this is IOC Container for managing Beans or storage for objects
+//       var repository= applicationContext.getBean(ProductService.class);
+//        repository.fetchProductsBySpecification(null,null,null,new Category((byte) 4));
+//        var user =User.builder()
+//                .name("a")
+//                .email("b")
+//                .password("c")
+//                .build();//transient state -> temporary
 //        var address = Addresses.builder()
 //                .city("mg")
 //                .state("na")

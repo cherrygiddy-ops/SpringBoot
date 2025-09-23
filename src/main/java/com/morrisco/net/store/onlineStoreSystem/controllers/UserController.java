@@ -1,7 +1,7 @@
 package com.morrisco.net.store.onlineStoreSystem.controllers;
 
 import com.morrisco.net.store.onlineStoreSystem.dtos.UserDto;
-import com.morrisco.net.store.onlineStoreSystem.entities.User;
+import com.morrisco.net.store.onlineStoreSystem.mappers.UserMapper;
 import com.morrisco.net.store.onlineStoreSystem.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,19 +16,22 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
     @GetMapping()
     public Iterable<UserDto> getAllUsers (){
-        return userRepository.findAll().stream().map(user -> new UserDto(user.getId(),user.getName(),user.getEmail())).toList();
+        return userRepository.findAll().stream()
+                .map(userMapper::toDto)
+                .toList();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserDto> getUser(@PathVariable int id){
-        var user=userRepository.findById(id).orElse(null);
+    public ResponseEntity<UserDto> getUser(@PathVariable int id) {
+        var user = userRepository.findById(id).orElse(null);
 
-        if (user==null)
+        if (user == null){
             return ResponseEntity.notFound().build();
-        UserDto userdto= new UserDto(user.getId(),user.getName(),user.getEmail());
-        return ResponseEntity.ok(userdto);
+          }
+        return ResponseEntity.ok(userMapper.toDto(user));
     }
 }
