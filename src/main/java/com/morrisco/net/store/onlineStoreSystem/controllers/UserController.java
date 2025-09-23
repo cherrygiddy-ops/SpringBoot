@@ -1,5 +1,6 @@
 package com.morrisco.net.store.onlineStoreSystem.controllers;
 
+import com.morrisco.net.store.onlineStoreSystem.dtos.UserDto;
 import com.morrisco.net.store.onlineStoreSystem.entities.User;
 import com.morrisco.net.store.onlineStoreSystem.repository.UserRepository;
 import lombok.AllArgsConstructor;
@@ -17,16 +18,17 @@ public class UserController {
     private final UserRepository userRepository;
 
     @GetMapping()
-    public Iterable<User> getAllUsers (){
-        return userRepository.findAll();
+    public Iterable<UserDto> getAllUsers (){
+        return userRepository.findAll().stream().map(user -> new UserDto(user.getId(),user.getName(),user.getEmail())).toList();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUser(@PathVariable int id){
+    public ResponseEntity<UserDto> getUser(@PathVariable int id){
         var user=userRepository.findById(id).orElse(null);
 
         if (user==null)
             return ResponseEntity.notFound().build();
-        return ResponseEntity.ok(user);
+        UserDto userdto= new UserDto(user.getId(),user.getName(),user.getEmail());
+        return ResponseEntity.ok(userdto);
     }
 }
