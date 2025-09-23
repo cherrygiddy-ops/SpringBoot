@@ -60,8 +60,8 @@ public class User {
         tags.add(tag);
     }
 
-    @OneToOne(mappedBy = "user",cascade = CascadeType.REMOVE)
-    private Profile profile;
+//    @OneToOne(mappedBy = "user",cascade = CascadeType.REMOVE)
+//    private Profile profile;
 
     @ManyToMany()
     @JoinTable(

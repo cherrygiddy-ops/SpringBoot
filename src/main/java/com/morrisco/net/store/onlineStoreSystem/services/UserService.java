@@ -78,17 +78,17 @@ public class UserService {
         userRepository.save(user);
     }
 
-    @Transactional
-    public void fetchByEmail(){
-        //In Here we have N+1 PROBLEM Since for every user Record Hibernate sents another request to db to fetch users address
-        //hence Eager loading can solve this problem by Loading address and users at ounce
-       var users= userRepository.findAllWithAddresses();
-       for (var user:users){
-        System.out.println(user);
-        user.getAddresses().forEach(System.out::println
-                );
-       }
-    }
+//    @Transactional
+//    public void fetchByEmail(){
+//        //In Here we have N+1 PROBLEM Since for every user Record Hibernate sents another request to db to fetch users address
+//        //hence Eager loading can solve this problem by Loading address and users at ounce
+//       var users= userRepository.findAllWithAddresses();
+//       for (var user:users){
+//        System.out.println(user);
+//        user.getAddresses().forEach(System.out::println
+//                );
+//       }
+//    }
 
     @Transactional
     public void persistUserAndProfile(){
@@ -111,12 +111,12 @@ public class UserService {
 
     }
 
-    @Transactional
-    public void printEmails(int points){
-        userRepository.findLoyalUsers(points).forEach(profile -> {
-            System.out.println(profile.getId());
-            System.out.println(profile.getEmail());
-        });
-    }
+//    @Transactional
+//    public void printEmails(int points){
+//        userRepository.findLoyalUsers(points).forEach(profile -> {
+//            System.out.println(profile.getId());
+//            System.out.println(profile.getEmail());
+//        });
+//    }
 
 }

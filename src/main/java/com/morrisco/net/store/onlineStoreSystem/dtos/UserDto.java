@@ -20,15 +20,9 @@ public class UserDto {
      * @JsonInclude for excluding null or empty fields
      * @JsonFormatt for formatting values especially date or numbers
      */
-    @JsonIgnore
     private  Integer id;
-    @JsonProperty("user_name")
     private String name;
     private String email;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private String username;
 
-    @JsonFormat(pattern = "YYYY-MM-DD HH:MM:SS")
-    private LocalDateTime createdAt;
 
 }
