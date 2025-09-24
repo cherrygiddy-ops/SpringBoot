@@ -1,6 +1,7 @@
 package com.morrisco.net.store.onlineStoreSystem.controllers;
 
 import com.morrisco.net.store.onlineStoreSystem.dtos.UserDto;
+import com.morrisco.net.store.onlineStoreSystem.entities.User;
 import com.morrisco.net.store.onlineStoreSystem.mappers.UserMapper;
 import com.morrisco.net.store.onlineStoreSystem.repository.UserRepository;
 import lombok.AllArgsConstructor;
@@ -37,5 +38,10 @@ public class UserController {
             return ResponseEntity.notFound().build();
           }
         return ResponseEntity.ok(userMapper.toDto(user));
+    }
+
+    @PostMapping
+    public UserDto createUser(@RequestBody UserDto data){
+        return data;
     }
 }
