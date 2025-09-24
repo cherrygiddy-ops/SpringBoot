@@ -1,6 +1,7 @@
 package com.morrisco.net.store.onlineStoreSystem.controllers;
 
 import com.morrisco.net.store.onlineStoreSystem.dtos.RegisterUserRequest;
+import com.morrisco.net.store.onlineStoreSystem.dtos.UpdateUserRequest;
 import com.morrisco.net.store.onlineStoreSystem.dtos.UserDto;
 import com.morrisco.net.store.onlineStoreSystem.entities.User;
 import com.morrisco.net.store.onlineStoreSystem.mappers.UserMapper;
@@ -54,5 +55,18 @@ public class UserController {
 
         var uri =uriBuilder.path("/users/{id}").buildAndExpand(userDto.getId()).toUri();
         return ResponseEntity.created(uri).body(userDto);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<UserDto> updateUser(@RequestBody UpdateUserRequest request,@PathVariable(name = "id") int id){
+        var user =userRepository.findById(id).orElse(null);
+
+        if (user == null)
+            return ResponseEntity.notFound().build();
+        userMapper.updateUser(request,user);
+
+        userRepository.save(user);
+
+        return ResponseEntity.ok(userMapper.toDto(user));
     }
 }
