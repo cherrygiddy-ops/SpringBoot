@@ -33,6 +33,7 @@ public interface ProductRepository extends JpaRepository<Product, Long>,ProductC
     List<Product> findByPriceGreaterThanEqual (BigDecimal price);
     List<Product> findByPriceLessThanEqual (BigDecimal price);
     List<Product> findByPriceBetween (BigDecimal min,BigDecimal max);
+    //List<Product> findByCategory(Byte category_id);
 
     //Null
     List<Product> findByNameNull ();
@@ -65,7 +66,8 @@ public interface ProductRepository extends JpaRepository<Product, Long>,ProductC
     void updatePriceByCategory(@Param("newPrice") BigDecimal newPrice, @Param("categoryId") Byte categoryId);
 
     //@Query("select p.id,p.name from Product p where p.category = :category")
-    List<ProductSummaryUsingClass> findByCategory(@Param("category") Category category);
+    List<Product> findByCategory( Category category);
+    List<Product> findByCategoryId( Byte categoryId);
 
     @Procedure("findProductsByPrice")
     List<Product> findProductsUsingStoredProcedure( BigDecimal min, BigDecimal max);

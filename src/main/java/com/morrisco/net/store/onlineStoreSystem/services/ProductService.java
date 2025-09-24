@@ -129,5 +129,8 @@ public class ProductService {
         System.out.println(totalElements);
 
     }
+    public void ftechPRod(Byte id){
+        productRepository.findByCategoryId((byte) 30).forEach(System.out::println);
+    }
 }
 

@@ -14,9 +14,9 @@ import java.math.BigDecimal;
 public class StoreApplication {
 
 	public static void main(String[] args) {
-        SpringApplication.run(StoreApplication.class, args);//this is IOC Container for managing Beans or storage for objects
-//       var repository= applicationContext.getBean(ProductService.class);
-//        repository.fetchProductsBySpecification(null,null,null,new Category((byte) 4));
+        ApplicationContext applicationContext=SpringApplication.run(StoreApplication.class, args);//this is IOC Container for managing Beans or storage for objects
+       var repository= applicationContext.getBean(ProductService.class);
+        repository.ftechPRod((byte) 3);
 //        var user =User.builder()
 //                .name("a")
 //                .email("b")
