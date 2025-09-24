@@ -1,5 +1,6 @@
 package com.morrisco.net.store.onlineStoreSystem.mappers;
 
+import com.morrisco.net.store.onlineStoreSystem.dtos.RegisterUserRequest;
 import com.morrisco.net.store.onlineStoreSystem.dtos.UserDto;
 import com.morrisco.net.store.onlineStoreSystem.entities.User;
 import org.mapstruct.Mapper;
@@ -11,4 +12,6 @@ import org.springframework.stereotype.Component;
 public interface UserMapper {
 
     UserDto toDto (User user);
+
+    User toEntity(RegisterUserRequest registerUserRequest);
 }
