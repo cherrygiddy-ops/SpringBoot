@@ -23,8 +23,10 @@ public class ProductController {
     private final CategoryRepository categoryRepository;
 
     @GetMapping()
-    public Iterable<ProductDto> getProducts(@RequestParam(required = false,name = "categoryId") Byte categoryId){
-           if (categoryId ==null)
+    public Iterable<ProductDto> getProducts(@RequestHeader(name = "x-auth-token",required = false) String authToken,  @RequestParam(required = false,name = "categoryId") Byte categoryId){
+
+        System.out.println(authToken);
+        if (categoryId ==null)
                return productRepository.findAll().stream()
                 .map(mapper::toProductDto)
                 .toList();
