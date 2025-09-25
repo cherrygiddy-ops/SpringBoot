@@ -27,8 +27,3 @@ Bean Scope
  when we try to Delete Entity then that Entity will Transition to Removed State  then Hibernate will remove that entity from db and this entity will became transient again
 
 
-stripe key
-sk_test_51SA9CaL2xj0u4h8h7RYQEUarcKSokcx0yBK99zegNVIFYXXlw1h5VOVjB48cZil6FKfCdVGGiC9DyaHwxQWpUpT800GYraKuDG
-
-for stripe
- acct_1ErfC8Lq5XmwS1Kw
