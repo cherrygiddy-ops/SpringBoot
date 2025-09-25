@@ -8,7 +8,7 @@ import org.mapstruct.MappingTarget;
 
 @Mapper(componentModel = "spring")
 public interface ProductMapper {
-    @Mapping( source = "category.id", target = "categoryId") //customizing Mapping
+    @Mapping(target = "categoryId", source = "category.id") //customizing Mapping
     ProductDto toProductDto (Product product);
 
     Product toProductEntity(ProductDto productDto);
