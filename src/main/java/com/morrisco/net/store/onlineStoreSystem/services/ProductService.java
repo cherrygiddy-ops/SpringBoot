@@ -132,5 +132,9 @@ public class ProductService {
     public void ftechPRod(Byte id){
         productRepository.findByCategoryId((byte) 30).forEach(System.out::println);
     }
+    public void addProduct(){
+        var product = Product.builder().price(BigDecimal.valueOf(10)).build();
+        productRepository.save(product);
+    }
 }
 
