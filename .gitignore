@@ -37,3 +37,7 @@ sk_test_51SA9CaL2xj0u4h8h7RYQEUarcKSokcx0yBK99zegNVIFYXXlw1h5VOVjB48cZil6FKfCdVG
 
 for stripe
  acct_1ErfC8Lq5XmwS1Kw
+
+  - commit: ea371b231337fd87d11b6ea67033b758b64d3816
+ remote:            path: .gitignore:36
+ remote:          - commit: bf084157afedd2538515647bd290537ddae16aa0
