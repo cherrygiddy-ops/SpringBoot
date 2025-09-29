@@ -26,4 +26,14 @@ Bean Scope
  Persistence state and Hibernate will save the Changes
  when we try to Delete Entity then that Entity will Transition to Removed State  then Hibernate will remove that entity from db and this entity will became transient again
 
-
+Authentication Method
+1.Session Based-> a server creates  a session a small piec of memoery in server about the user and sends it over the network inform of a cookie a client stores it in browser so every time during communications a client send a request plus this cookie problem is not scalable for many Users
+2.Token Base authentication a server issues a token to a client and clients uses that token for every communictation with servers
+benefits ->
+     1.stateless require less memory in server
+     2.scalable for many users
+     3. works well for front end apps
+ whats contain in a token
+1.Header -> algo used to generate token and type of Token i.e Jwt
+2.PayLoad ->public information about the user plus issued time
+3.Secret key -> this is the key that always remain in the server and its used to check the authentic of token return back by the user (decoding)
