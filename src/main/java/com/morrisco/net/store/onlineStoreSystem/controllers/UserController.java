@@ -10,12 +10,15 @@ import com.morrisco.net.store.onlineStoreSystem.repositories.UserRepository;
 import com.morrisco.net.store.onlineStoreSystem.services.UserService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @AllArgsConstructor
 @RestController
@@ -29,14 +32,7 @@ public class UserController {
 
     @GetMapping()
     public Iterable<UserDto> getAllUsers (@RequestParam(required = false,defaultValue = "" ,name = "sort") String sortBy){
-
-//        if (!Set.of("name","email").contains(sortBy))
-//            sortBy= "name";
-//
-//        return userRepository.findAll(Sort.by(sortBy)).stream()
-//                .map(userMapper::toDto)
-//                .toList();
-        return null;
+        return userService.getUserDtos(sortBy);
     }
 
     @GetMapping("/{id}")
