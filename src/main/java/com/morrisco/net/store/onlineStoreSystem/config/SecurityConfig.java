@@ -29,6 +29,7 @@ public class SecurityConfig {
         http.authorizeHttpRequests(c->c
                 .requestMatchers("/carts/**").permitAll()
                 .requestMatchers(HttpMethod.POST,"/users").permitAll()
+                .requestMatchers(HttpMethod.POST,"/auth/**").permitAll()
                 .anyRequest().authenticated());
 
         return http.build();

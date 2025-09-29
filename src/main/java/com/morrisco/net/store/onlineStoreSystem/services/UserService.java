@@ -1,8 +1,12 @@
 package com.morrisco.net.store.onlineStoreSystem.services;
 
+import com.morrisco.net.store.onlineStoreSystem.dtos.LoginRequest;
 import com.morrisco.net.store.onlineStoreSystem.dtos.RegisterUserRequest;
 import com.morrisco.net.store.onlineStoreSystem.dtos.UserDto;
 import com.morrisco.net.store.onlineStoreSystem.exceptions.EmailExistsException;
+import com.morrisco.net.store.onlineStoreSystem.exceptions.EmailNotFoundException;
+import com.morrisco.net.store.onlineStoreSystem.exceptions.IncorrectPasswordExecption;
+import com.morrisco.net.store.onlineStoreSystem.exceptions.UserFoundException;
 import com.morrisco.net.store.onlineStoreSystem.mappers.UserMapper;
 import com.morrisco.net.store.onlineStoreSystem.repositories.UserRepository;
 import lombok.AllArgsConstructor;
@@ -36,6 +40,15 @@ public class UserService {
         return userRepository.findAll(Sort.by(sortBy)).stream()
                 .map(userMapper::toDto)
                 .toList();
+    }
+
+    public void login(LoginRequest request){
+        var user =userRepository.findByEmail(request.getEmail()).orElse(null);
+        if (user==null)
+            throw new EmailNotFoundException();
+        if (!passwordEncoder.matches(request.getPassword(), user.getPassword()))
+            throw new IncorrectPasswordExecption();
+        throw new UserFoundException();
     }
 
 
