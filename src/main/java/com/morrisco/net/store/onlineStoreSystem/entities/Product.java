@@ -30,12 +30,18 @@ public class Product {
     @Column(name ="description")
     private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)//Eager Loading
+    @ManyToOne(cascade = CascadeType.PERSIST)//Eager Loading
     @JoinColumn(name = "category_id") //this is the foreignKey Column
     @ToString.Exclude
     private Category category;
 
     @ManyToMany(mappedBy = "wishList") //telling to hibernate who is the owner of the relationship
     @ToString.Exclude//EXCLUDING TAGS from being converted to Tostring because it can form a cycle
-    private Set<User> users = new HashSet<>();//user can not have duplicate tags
+    private Set<User> users = new HashSet<>();//user can not have duplicate products
+
+    @OneToMany(mappedBy = "product")
+    @Builder.Default
+    @ToString.Exclude
+    private Set<CartItem> cartItems = new HashSet<>();
+
 }

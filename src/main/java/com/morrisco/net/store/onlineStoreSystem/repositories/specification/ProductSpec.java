@@ -1,4 +1,4 @@
-package com.morrisco.net.store.onlineStoreSystem.repository.specification;
+package com.morrisco.net.store.onlineStoreSystem.repositories.specification;
 
 import com.morrisco.net.store.onlineStoreSystem.entities.Category;
 import com.morrisco.net.store.onlineStoreSystem.entities.Product;

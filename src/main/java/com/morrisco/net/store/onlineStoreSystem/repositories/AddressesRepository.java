@@ -1,8 +1,7 @@
-package com.morrisco.net.store.onlineStoreSystem.repository;
+package com.morrisco.net.store.onlineStoreSystem.repositories;
 
 import com.morrisco.net.store.onlineStoreSystem.entities.Addresses;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.Repository;
 
 public interface AddressesRepository extends CrudRepository<Addresses, Integer> {
 }

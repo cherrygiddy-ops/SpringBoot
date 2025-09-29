@@ -1,4 +1,4 @@
-package com.morrisco.net.store.onlineStoreSystem.repository;
+package com.morrisco.net.store.onlineStoreSystem.repositories;
 
 import com.morrisco.net.store.onlineStoreSystem.entities.Category;
 import com.morrisco.net.store.onlineStoreSystem.entities.Product;
@@ -8,20 +8,22 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
-import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-@AllArgsConstructor
 @Repository
 public class ProductCriteriaRepositoryImpl implements ProductCriteriaRepository {
 
 
     @PersistenceContext
     private final EntityManager entityManager;
+
+    public ProductCriteriaRepositoryImpl(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
 
     @Override
     public List<Product> findProductsByCriteria(String name, BigDecimal minPrice, BigDecimal maxPrice, Category category) {

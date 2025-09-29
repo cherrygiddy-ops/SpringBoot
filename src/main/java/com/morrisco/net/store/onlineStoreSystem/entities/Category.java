@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.util.HashSet;
 import java.util.Set;
+
 @Builder
 @Setter
 @Getter
@@ -24,14 +25,12 @@ public class Category {
 
     @OneToMany(mappedBy = "category")
     @Builder.Default
+    @ToString.Exclude
     private Set<Product> products = new HashSet<>();
 
-    public Category(byte categoryId) {
-        this.id =categoryId;
-    }
 
-    public void addProduct(Product product){
-        products.add(product);
-        product.setCategory(this);
-    }
+//    public void addProduct(Product product){
+//        products.add(product);
+//        product.setCategory(this);
+//    }
 }

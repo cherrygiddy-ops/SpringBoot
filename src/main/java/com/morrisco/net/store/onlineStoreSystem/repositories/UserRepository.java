@@ -1,16 +1,10 @@
-package com.morrisco.net.store.onlineStoreSystem.repository;
+package com.morrisco.net.store.onlineStoreSystem.repositories;
 
-import com.morrisco.net.store.onlineStoreSystem.dtos.UserSummary;
 import com.morrisco.net.store.onlineStoreSystem.entities.User;
-import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
-
-import java.util.List;
-import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Integer> {
+    boolean existsByEmail(String email);
 
 //    //@Query("select u.email from User u where u.email = ?1")
 //    @EntityGraph(attributePaths = {"tags","addresses"}) //changing the relationship attributes btwn tags and user to be ager loading

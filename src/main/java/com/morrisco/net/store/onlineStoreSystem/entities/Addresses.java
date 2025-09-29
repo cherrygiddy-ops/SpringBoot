@@ -4,8 +4,6 @@ package com.morrisco.net.store.onlineStoreSystem.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Date;
-
 @Setter
 @Getter
 @AllArgsConstructor

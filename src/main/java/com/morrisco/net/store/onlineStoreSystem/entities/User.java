@@ -35,15 +35,15 @@ public class User {
     @Builder.Default //telling builder annotation to include new ArrayList<>(); when building an object
     private List<Addresses> addresses = new ArrayList<>();
 
-    public void addAddress(Addresses address){
-        addresses.add(address);
-        address.setUser(this);
-    }
-
-    public void removeAddress(Addresses address){
-        addresses.remove(address);
-        address.setUser(null);
-    }
+//    public void addAddress(Addresses address){
+//        addresses.add(address);
+//        address.setUser(this);
+//    }
+//
+//    public void removeAddress(Addresses address){
+//        addresses.remove(address);
+//        address.setUser(null);
+//    }
 
 
     @ManyToMany

@@ -1,38 +1,42 @@
 package com.morrisco.net.store.onlineStoreSystem.controllers;
 
-import com.morrisco.net.store.onlineStoreSystem.dtos.ChangePasswordRequest;
 import com.morrisco.net.store.onlineStoreSystem.dtos.RegisterUserRequest;
+import com.morrisco.net.store.onlineStoreSystem.dtos.ChangePasswordRequest;
 import com.morrisco.net.store.onlineStoreSystem.dtos.UpdateUserRequest;
 import com.morrisco.net.store.onlineStoreSystem.dtos.UserDto;
-import com.morrisco.net.store.onlineStoreSystem.entities.User;
+import com.morrisco.net.store.onlineStoreSystem.exceptions.EmailExistsException;
 import com.morrisco.net.store.onlineStoreSystem.mappers.UserMapper;
-import com.morrisco.net.store.onlineStoreSystem.repository.UserRepository;
+import com.morrisco.net.store.onlineStoreSystem.repositories.UserRepository;
+import com.morrisco.net.store.onlineStoreSystem.services.UserService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.util.Set;
+import java.util.Map;
 
-@RestController
 @AllArgsConstructor
+@RestController
 @RequestMapping("/users")
 public class UserController {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+    private final UserService userService;
+
 
     @GetMapping()
     public Iterable<UserDto> getAllUsers (@RequestParam(required = false,defaultValue = "" ,name = "sort") String sortBy){
 
-        if (!Set.of("name","email").contains(sortBy))
-            sortBy= "name";
-
-        return userRepository.findAll(Sort.by(sortBy)).stream()
-                .map(userMapper::toDto)
-                .toList();
+//        if (!Set.of("name","email").contains(sortBy))
+//            sortBy= "name";
+//
+//        return userRepository.findAll(Sort.by(sortBy)).stream()
+//                .map(userMapper::toDto)
+//                .toList();
+        return null;
     }
 
     @GetMapping("/{id}")
@@ -47,20 +51,17 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<UserDto> createUser(
-            @RequestBody RegisterUserRequest request,
+           @Valid @RequestBody RegisterUserRequest request,
             UriComponentsBuilder uriBuilder){
-       var user= userMapper.toEntity(request);
-
-       userRepository.save(user);
-
-        var userDto=userMapper.toDto(user);
-
+           var userDto =userService.registerUser(request);
         var uri =uriBuilder.path("/users/{id}").buildAndExpand(userDto.getId()).toUri();
         return ResponseEntity.created(uri).body(userDto);
+
+
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserDto> updateUser(@RequestBody UpdateUserRequest request,@PathVariable(name = "id") int id){
+    public ResponseEntity<UserDto> updateUser(@Valid @RequestBody UpdateUserRequest request, @PathVariable(name = "id") int id){
         var user =userRepository.findById(id).orElse(null);
 
         if (user == null)
@@ -70,6 +71,7 @@ public class UserController {
         userRepository.save(user);
 
         return ResponseEntity.ok(userMapper.toDto(user));
+
     }
 
     @DeleteMapping("/{id}")
@@ -94,5 +96,11 @@ public class UserController {
         userRepository.save(user);
 
         return ResponseEntity.noContent().build();
+
+    }
+
+    @ExceptionHandler(EmailExistsException.class)
+    public ResponseEntity<Map<String,String>>handleEmailExist(){
+        return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("error","Email is Already Registered"));
     }
 }
