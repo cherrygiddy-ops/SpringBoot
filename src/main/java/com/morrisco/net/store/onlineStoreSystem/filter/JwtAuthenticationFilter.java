@@ -8,7 +8,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -38,7 +37,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
          *  1.Anonymous User
          *  2.Authentic User
          */
-        var authentication = new UsernamePasswordAuthenticationToken(service.getEmailFromToken(token),null,null);
+        var authentication = new UsernamePasswordAuthenticationToken(service.getUserIdFromToken(token),null,null);
         authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));//attaching metadata to authentication object like IP address
 
 

@@ -1,10 +1,9 @@
 package com.morrisco.net.store.onlineStoreSystem.services;
 
+import com.morrisco.net.store.onlineStoreSystem.entities.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +13,12 @@ public class JwtService {
     @Value("${spring.jwt.secret}")
     private String secret;
 
-    public String generateTokens(String email){
+    public String generateTokens(User user){
         final long expirationDate =86400; //seconds in a day
         return Jwts.builder()
-                .subject(email)
+                .subject(user.getId().toString())
+                .claim("name",user.getName())
+                .claim("email",user.getEmail())
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis() +1000 *expirationDate) )
                 .signWith(Keys.hmacShaKeyFor(secret.getBytes()))
@@ -43,9 +44,9 @@ public class JwtService {
                 .getPayload();
     }
 
-    public String getEmailFromToken (String token){
+    public Integer getUserIdFromToken(String token){
        var claim = getClaims(token);
-       return claim.getSubject();
+       return Integer.valueOf(claim.getSubject());
     }
 
 }
