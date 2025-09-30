@@ -1,5 +1,6 @@
 package com.morrisco.net.store.onlineStoreSystem.config;
 
+import com.morrisco.net.store.onlineStoreSystem.filter.JwtAuthenticationFilter;
 import com.morrisco.net.store.onlineStoreSystem.services.AuthService;
 import com.morrisco.net.store.onlineStoreSystem.services.UserService;
 import lombok.AllArgsConstructor;
@@ -17,12 +18,14 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 @AllArgsConstructor
 public class SecurityConfig {
     private final AuthService authService;
+    private JwtAuthenticationFilter filter;
     //security Filter chain defines how HTTP Request are Secured
     @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -38,8 +41,10 @@ public class SecurityConfig {
         http.authorizeHttpRequests(c->c
                 .requestMatchers("/carts/**").permitAll()
                 .requestMatchers(HttpMethod.POST,"/users").permitAll()
-                .requestMatchers(HttpMethod.POST,"/auth/**").permitAll()
-                .anyRequest().authenticated());
+                .requestMatchers(HttpMethod.POST,"/auth/login").permitAll()
+                .anyRequest().authenticated())
+                .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
+
 
         return http.build();
   }

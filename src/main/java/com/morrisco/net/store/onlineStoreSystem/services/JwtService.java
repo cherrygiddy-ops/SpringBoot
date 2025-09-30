@@ -1,5 +1,6 @@
 package com.morrisco.net.store.onlineStoreSystem.services;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import lombok.AllArgsConstructor;
@@ -26,15 +27,25 @@ public class JwtService {
 
     public boolean  validateToken(String token){
         try {
-            var claims =Jwts.parser()
-                    .verifyWith(Keys.hmacShaKeyFor(secret.getBytes()))
-                    .build()
-                    .parseSignedClaims(token)
-                    .getPayload();
+            var claims = getClaims(token);
             return claims.getExpiration().after(new Date());
         }catch (Exception e){
             return false;
         }
+    }
+
+    //PayLoad
+    private Claims getClaims(String token) {
+        return Jwts.parser()
+                .verifyWith(Keys.hmacShaKeyFor(secret.getBytes()))
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
+    }
+
+    public String getEmailFromToken (String token){
+       var claim = getClaims(token);
+       return claim.getSubject();
     }
 
 }
