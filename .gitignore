@@ -4,6 +4,7 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+
 ### STS ###
 .apt_generated
 .classpath
@@ -41,3 +42,5 @@ for stripe
   - commit: ea371b231337fd87d11b6ea67033b758b64d3816
  remote:            path: .gitignore:36
  remote:          - commit: bf084157afedd2538515647bd290537ddae16aa0
+
+.env
