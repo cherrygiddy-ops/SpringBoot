@@ -1,6 +1,8 @@
 package com.morrisco.net.store.onlineStoreSystem.controllers;
 
+import com.morrisco.net.store.onlineStoreSystem.dtos.JwtResponse;
 import com.morrisco.net.store.onlineStoreSystem.dtos.LoginRequest;
+import com.morrisco.net.store.onlineStoreSystem.services.JwtService;
 import com.morrisco.net.store.onlineStoreSystem.services.UserService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -18,9 +20,15 @@ import java.util.Map;
 @RequestMapping("/auth")
 public class AuthController {
     private final AuthenticationManager authenticationManager;
+    private final JwtService jwtService;
     @PostMapping("/login")
-    public void login(@Valid @RequestBody LoginRequest loginRequest){
+    public ResponseEntity<JwtResponse> login(@Valid @RequestBody LoginRequest loginRequest){
        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getEmail(),loginRequest.getPassword()));
+
+       var token = jwtService.generateTokens(loginRequest.getEmail());
+       
+       return ResponseEntity.ok(new JwtResponse(token));
+
     }
     @ExceptionHandler(BadCredentialsException.class)
     public ResponseEntity<?> handleUserFound(){
