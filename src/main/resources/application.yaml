@@ -9,3 +9,5 @@ spring:
     ignoreMigrationPatterns: '*:ignored,*:missing,*:future'
   jpa:
     show-sql: true
+
+
