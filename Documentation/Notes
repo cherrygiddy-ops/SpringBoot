@@ -43,3 +43,10 @@ the Use of Filters
 2.Log incoming Request
 3.Modify Headers
 4.Block Suspicious Traffic
+
+     Refresh Token         vs                     Access Token
+1.Issued inform of HTTPOnly Cookie           1. return in a Response Body
+2.Not Accessible via JavaScript              2.Accessible via Javascript
+3.much harder to still                       3.Stored in LOcalStorage Easier to Still
+4.Long lived usally 7 d                      4.Short Lived usually 15m or less
+5.Use to Isssue Access token                 5.Used to access protected Endpoints
