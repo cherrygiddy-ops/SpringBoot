@@ -1,5 +1,6 @@
 package com.morrisco.net.store.onlineStoreSystem.config;
 
+import com.morrisco.net.store.onlineStoreSystem.entities.Role;
 import com.morrisco.net.store.onlineStoreSystem.filter.JwtAuthenticationFilter;
 import com.morrisco.net.store.onlineStoreSystem.services.AuthService;
 import com.morrisco.net.store.onlineStoreSystem.services.UserService;
@@ -41,14 +42,19 @@ public class SecurityConfig {
                 c.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         http.csrf(AbstractHttpConfigurer::disable);
         http.authorizeHttpRequests(c->c
-                .requestMatchers("/carts/**").permitAll()
-                .requestMatchers(HttpMethod.POST,"/users").permitAll()
-                .requestMatchers(HttpMethod.POST,"/auth/login").permitAll()
+                        .requestMatchers("/carts/**").permitAll()
+                        .requestMatchers(HttpMethod.POST,"/admin/**").hasRole(Role.ADMIN.name())
+                        .requestMatchers(HttpMethod.POST,"/users").permitAll()
+                        .requestMatchers(HttpMethod.POST,"/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST,"/auth/refresh").permitAll()
-                .anyRequest().authenticated())
+                        .anyRequest().authenticated())
                 .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
-                .exceptionHandling(c->
-                        c.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)));
+                .exceptionHandling(c->{
+                        c.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED));
+                        c.accessDeniedHandler((request, response, accessDeniedException) ->
+                                response.setStatus(HttpStatus.FORBIDDEN.value()));
+
+                        });
 
 
         return http.build();

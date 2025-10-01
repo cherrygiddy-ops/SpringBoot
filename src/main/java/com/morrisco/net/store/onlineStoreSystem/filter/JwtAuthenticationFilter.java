@@ -7,12 +7,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.List;
 
 @Component
 @AllArgsConstructor
@@ -28,7 +30,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
         var token = authHeader.replace("Bearer ","");
-        if(!service.validateToken(token)){
+       var jwt= service.parseToken(token);
+        if(jwt ==null ||jwt.isExpired()){
             filterChain.doFilter(request,response);
             return;
         }
@@ -37,7 +40,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
          *  1.Anonymous User
          *  2.Authentic User
          */
-        var authentication = new UsernamePasswordAuthenticationToken(service.getUserIdFromToken(token),null,null);
+        var authentication = new UsernamePasswordAuthenticationToken(
+                jwt.getUserIdFromToken(token),null, List.of(new SimpleGrantedAuthority("ROLE_" + jwt.getRoleFromToken(token)),new SimpleGrantedAuthority("ROLE_CHERRY")));
         authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));//attaching metadata to authentication object like IP address
 
 

@@ -3,6 +3,7 @@ package com.morrisco.net.store.onlineStoreSystem.services;
 import com.morrisco.net.store.onlineStoreSystem.dtos.LoginRequest;
 import com.morrisco.net.store.onlineStoreSystem.dtos.RegisterUserRequest;
 import com.morrisco.net.store.onlineStoreSystem.dtos.UserDto;
+import com.morrisco.net.store.onlineStoreSystem.entities.Role;
 import com.morrisco.net.store.onlineStoreSystem.exceptions.EmailExistsException;
 import com.morrisco.net.store.onlineStoreSystem.mappers.UserMapper;
 import com.morrisco.net.store.onlineStoreSystem.repositories.UserRepository;
@@ -25,6 +26,7 @@ public class UserService  {
         if (userRepository.existsByEmail(request.getEmail()))
             throw  new EmailExistsException();
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRole(Role.USER);
         userRepository.save(user);
 
         return userMapper.toDto(user);

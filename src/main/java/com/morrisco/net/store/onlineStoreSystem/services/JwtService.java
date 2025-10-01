@@ -1,8 +1,10 @@
 package com.morrisco.net.store.onlineStoreSystem.services;
 
 import com.morrisco.net.store.onlineStoreSystem.config.JwtConfig;
+import com.morrisco.net.store.onlineStoreSystem.entities.Role;
 import com.morrisco.net.store.onlineStoreSystem.entities.User;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import lombok.AllArgsConstructor;
@@ -15,37 +17,33 @@ import java.util.Date;
 public class JwtService {
     private final JwtConfig config;
 
-    public String generateAccessToken(User user){
-        //seconds in a day
-        return getToken(user, config.getAccessTokenExpiration());
 
+    public Jwt generateAccessToken(User user){
+        return  getToken(user, config.getAccessTokenExpiration());
     }
-    public String generateRefreshToken(User user){
+    public Jwt generateRefreshToken(User user){
         return getToken(user, config.getRefreshTokenExpiration());
 
     }
-
-    private String getToken(User user, long expirationTime) {
-        return Jwts.builder()
+    public  Jwt getToken(User user, long expirationTime) {
+        var claims=Jwts.claims()
                 .subject(user.getId().toString())
-                .claim("name", user.getName())
-                .claim("email", user.getEmail())
+                .add("name", user.getName())
+                .add("email", user.getEmail())
+                .add("role",user.getRole())
                 .issuedAt(new Date())
-                .expiration(new Date(System.currentTimeMillis() + 1000 * expirationTime))
-                .signWith(config.getSecret())
-                .compact();
+                .expiration(new Date(System.currentTimeMillis() + 1000 * expirationTime)) .build()  ;
+        return new Jwt(claims, config.getSecret());
     }
-
-    public boolean  validateToken(String token){
+    public Jwt parseToken (String token){
         try {
             var claims = getClaims(token);
-            return claims.getExpiration().after(new Date());
-        }catch (Exception e){
-            return false;
+            return new Jwt(claims, config.getSecret());
+        }catch (JwtException e){
+            return null;
+
         }
     }
-
-    //PayLoad
     private Claims getClaims(String token) {
         return Jwts.parser()
                 .verifyWith(config.getSecret())
@@ -54,9 +52,12 @@ public class JwtService {
                 .getPayload();
     }
 
-    public Integer getUserIdFromToken(String token){
-       var claim = getClaims(token);
-       return Integer.valueOf(claim.getSubject());
-    }
+
+
+
+
+    //PayLoad
+
+
 
 }
